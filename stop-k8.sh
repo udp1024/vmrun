@@ -1,22 +1,20 @@
 #!/bin/bash
 
-declare -a arr=(\
-        "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8w2/k8-w2.vmwarevm/k8-w2.vmx"\
-        "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8-w1/k8-w1.vmwarevm/k8-w1.vmx"\
-        "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8m1/k8-m1.vmwarevm/k8-m1.vmx"\
-        "/Volumes/Crucial X8/VMs/K8 Cluster 1/nfs-server/nfs-server.vmwarevm/nfs-server.vmx"\
-	"/Volumes/Crucial X8/VMs/K8 Cluster 1/k8-desktop/Ubuntu desktop 22.04.3.vmwarevm/Ubuntu desktop 22.04.3.vmx"\
-)
+# stop-k8.sh
+# script to stop k8's dev desktop and nodes using VMware vmrun command line utility
 
-echo 'Stopping k8 Cluster 1'
-#vmrun -T fusion stop "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8-desktop/Ubuntu desktop 22.04.3.vmwarevm" -wait
-#echo 'k8-desktop stopped'
+# setup an array with vm path and name
+source ./k8-arr1.sh
+
+# stop mandatory VM's e.g. dev desktop and /or storage providers
+# source ./stop-k8-desk.sh
+
+echo 'Stopping k8 cluster 1'
 
 for i in "${arr[@]}"; do
-echo 'stopping Cluster Node... '
+echo 'stopping Node... ' "$i"
 vmrun -T fusion stop "$i" -wait
 done
-
 echo "Cluster Stopped."
 
 #read -t 2 -p "waiting for Vmware to cleanly stop the vm ..."
