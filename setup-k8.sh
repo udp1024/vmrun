@@ -8,8 +8,8 @@ source ./k8-arr2.sh
 
 
 echo 'Starting to clone ...'
-for (( q=0; q < ${#arr1[@]}; ++q)); do
-#for (( q=0; q < 2; ++q)); do
+#for (( q=0; q < ${#arr1[@]}; ++q)); do
+for (( q=0; q < 2; ++q)); do
 	echo processing ${arr2[$q]}
 	vmrun -T fusion clone "/Volumes/Crucial X8/VMs/K8 Cluster 1/K8 - cluster node template.vmwarevm/K8 - cluster node template.vmx" "${arr1[$q]}" full
 	vmrun start "${arr1[$q]}" nogui
