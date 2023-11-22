@@ -11,13 +11,13 @@ echo 'Starting to clone ...'
 #for (( q=0; q < ${#arr1[@]}; ++q)); do
 for (( q=0; q < 2; ++q)); do
 	echo processing ${arr2[$q]}
-	vmrun -T fusion clone "/Volumes/Crucial X8/VMs/K8 Cluster 1/K8 - cluster node template.vmwarevm/K8 - cluster node template.vmx" "${arr1[$q]}" full
+	vmrun -T fusion clone  "/Volumes/Crucial X8/VMs/K8 Cluster 1/K8 - cluster template.vmwarevm/K8 - cluster template.vmx" "${arr1[$q]}" full
 	vmrun start "${arr1[$q]}" nogui
 	NODEIP=$(vmrun -T fusion getGuestIPAddress "${arr1[$q]}" -wait)
-	KUSTOMIZE='/home/salman/k8-nodes/'${arr2[$q]}'.sh'
+	KUSTOMIZE='/home/ubuntu/k8-nodes/'${arr2[$q]}'.sh'
 	echo running command \""$KUSTOMIZE"\"
 	ssh-keygen -R $NODEIP
-	ssh -oStrictHostKeyChecking=accept-new salman@$NODEIP \""$KUSTOMIZE"\"
+	ssh -oStrictHostKeyChecking=accept-new ubuntu@$NODEIP \""$KUSTOMIZE"\"
 done
 echo 'Cluster Started'
 

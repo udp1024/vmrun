@@ -1,17 +1,16 @@
 #! /bin/bash
 
-declare -a arr=(\
-	"/Volumes/Crucial X8/VMs/K8 Cluster 1/k8m1/k8-m1.vmwarevm/k8-m1.vmx"\
-	"/Volumes/Crucial X8/VMs/K8 Cluster 1/k8-w1/k8-w1.vmwarevm/k8-w1.vmx"\
-	"/Volumes/Crucial X8/VMs/K8 Cluster 1/k8w2/k8-w2.vmwarevm/k8-w2.vmx"\
-	"/Volumes/Crucial X8/VMs/K8 Cluster 1/nfs-server/nfs-server.vmwarevm/nfs-server.vmx"\
-	"/Volumes/Crucial X8/VMs/K8 Cluster 1/k8-desktop/Ubuntu desktop 22.04.3.vmwarevm/Ubuntu desktop 22.04.3.vmx"\
-)
+echo 'Listing snapshots of k8 Cluster 1'
+echo '================================= \n'
+jim=w,m
 
-for i in "${arr[@]}"; do
-		printf %"s " Listing snapshots for vm "$i" 
-		echo
-		vmrun listSnapshots "$i"
-		printf '===============================\n\n'
+for j in ${jim//,/ }; do
+        for i in {3..1}; do
+        	echo 'Snapshot of k8-$j$i'
+		vmrun listSnapshots "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm"
+		echo '-------------------'
+	done
 done
+
+echo done
 
