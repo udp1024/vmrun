@@ -1,12 +1,12 @@
 #!/bin/bash
-# script to clone a node k8-m1 from template
+# script to clone a node k8-m2 from template
 cd ~/vmrun
 TEMPLATE="/Volumes/Crucial X8/VMs/K8 Cluster 1/k8-tmplt/k8-tmplt.vmwarevm/k8-tmplt.vmx"
-TARGET="/Volumes/Crucial X8/VMs/K8 Cluster 1/k8m1/k8-m1.vmwarevm/k8-m1.vmx"
-TARGETPATH="/Volumes/Crucial X8/VMs/K8 Cluster 1/k8m1/k8-m1.vmwarevm/"
-TARGETNAME="k8-m1"
-TARGETSETUPSCRIPT="k8-nodes/setup-m1.sh"
-TARGETSETUPNETPLAN="k8-nodes/m1.net"
+TARGET="/Volumes/Crucial X8/VMs/K8 Cluster 1/k8m2/k8-m2.vmwarevm/k8-m2.vmx"
+TARGETPATH="/Volumes/Crucial X8/VMs/K8 Cluster 1/k8m2/k8-m2.vmwarevm/"
+TARGETNAME="k8-m2"
+TARGETSETUPSCRIPT="k8-nodes/setup-m2.sh"
+TARGETSETUPNETPLAN="k8-nodes/m2.net"
 DEBUG=1
 
 TARGETURL="$TARGETNAME.udp1024.com"
@@ -28,7 +28,7 @@ if [ $DEBUG = 1 ]; then echo  "Continue?"; read REPLY; fi
 
 ssh-keygen -R $TEMPIP
 ssh -oStrictHostKeyChecking=accept-new salman@$TEMPIP "mkdir /home/salman/k8-nodes"
-# scp k8-nodes/setup-m1.sh k8-nodes/m1.net salman@$TEMPIP:/home/salman/k8-nodes
+# scp k8-nodes/setup-m2.sh k8-nodes/m2.net salman@$TEMPIP:/home/salman/k8-nodes
 scp $TARGETSETUPSCRIPT $TARGETSETUPNETPLAN salman@$TEMPIP:k8-nodes
 
 if [ $DEBUG = 1 ]; then echo "copied setup to clone. Continue?"; read REPLY; fi
