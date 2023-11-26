@@ -19,8 +19,12 @@ echo 'Stopping k8 cluster 1'
 jim=w,m
 for j in ${jim//,/ }; do
         for i in {3..1}; do
+		echo "Stopping k8-$j$i - waiting for the host to go down"
 		vmrun -T fusion stop "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm/k8-$j$i.vmx" wait;
-		echo "stopped k8-$j$i " ;
+		while [ $(ping -c 1 -W 500 -Q k8-w3.udp1024.com > /dev/null ; echo $?) -eq 0 ] 
+			do :
+			done
+		echo "k8-$j$i is down"
         done
 done
 echo 'Cluster Stopped'

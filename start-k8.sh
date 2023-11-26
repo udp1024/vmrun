@@ -26,5 +26,6 @@ for j in ${jim//,/ }; do
 		vmrun -T fusion getGuestIPAddress "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm/k8-$j$i.vmx" -wait
 	done
 done
-echo 'Cluster Started'
+echo 'Cluster Started. Following VMs are now running'
+vmrun list
 

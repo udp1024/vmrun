@@ -7,7 +7,7 @@ TARGETPATH="/Volumes/Crucial X8/VMs/K8 Cluster 1/k8w1/k8-w1.vmwarevm/"
 TARGETNAME="k8-w1"
 TARGETSETUPSCRIPT="k8-nodes/setup-w1.sh"
 TARGETSETUPNETPLAN="k8-nodes/w1.net"
-DEBUG=1
+DEBUG=0
 
 TARGETURL="$TARGETNAME.udp1024.com"
 
@@ -34,15 +34,20 @@ scp $TARGETSETUPSCRIPT $TARGETSETUPNETPLAN salman@$TEMPIP:k8-nodes
 if [ $DEBUG = 1 ]; then echo "copied setup to clone. Continue?"; read REPLY; fi
 ssh salman@$TEMPIP $TARGETSETUPSCRIPT
 echo waiting for setup script to complete execution ...
-while ping -c1 -t1 $TARGETURL; do : ; done
-echo ping received. Waiting for ssh server ...
+#while ping -c1 -t1 $TARGETURL; do : ; done
+# next command does nothing untill the ping stops responding. This gives the setup script to complete execution and reboot the clone
+while [ $(ping -c 1 -W 500 -Q $TEMPIP > /dev/null ; echo $?) -eq 0 ]
+                        do :
+                        done
+echo Server rebooted. Waiting for ssh server ...
 while ! nc -z $TARGETURL 22 > /dev/null; do sleep 1; done
 
 # clear SSH key from known hosts
-ssh-keygen -R $IP_ADDRESS $TARGETURL
-if [ $DEBUG = 1 ]; then echo "ssh is ready. Continue to shutdown the VM?"; read REPLY; fi
+ssh-keygen -R $TEMPIP $IP_ADDRESS $TARGETURL
+#if [ $DEBUG = 1 ]; then echo "ssh is ready. Continue to shutdown the VM?"; read REPLY; fi
 
 # Shutdown the VM
-ssh -oStrictHostKeyChecking=accept-new salman@$TARGETURL "sudo shutdown now"
-echo Please change the  mac address now
+#ssh -oStrictHostKeyChecking=accept-new salman@$TARGETURL "sudo shutdown now"
+#echo Please change the  mac address now
 echo Cloning complete for node $TARGETNAME $TARGETURL
+
