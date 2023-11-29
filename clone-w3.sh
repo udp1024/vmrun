@@ -42,7 +42,10 @@ echo Server rebooted. Waiting for ssh server ...
 while ! nc -z $TARGETURL 22 > /dev/null; do sleep 1; done
 
 # clear SSH key from known hosts
-ssh-keygen -R $TEMPIP $IP_ADDRESS $TARGETURL
+ssh-keygen -R $TEMPIP
+ssh-keygen -R $IP_ADDRESS
+ssh-keygen -R $TARGETURL
+
 #if [ $DEBUG = 1 ]; then echo "ssh is ready. Continue to shutdown the VM?"; read REPLY; fi
 
 # Shutdown the VM
