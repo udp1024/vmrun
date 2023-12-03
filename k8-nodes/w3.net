@@ -3,11 +3,10 @@ network:
   version: 2
   ethernets:
     ens192:
+      link-local: [ ipv4 ]
       dhcp4: false 
-      dhcp6: true
-      accept-ra: true
       addresses:
-        - 192.168.1.43/16
+        - 192.168.1.43/19
       nameservers:
         addresses: [192.168.1.3, 192.168.1.4]
         search: [udp1024.com]
