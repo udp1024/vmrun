@@ -5,9 +5,15 @@
 # disable cloud-init
 sudo touch /etc/cloud/cloud-init.disabled
 
+# setup a generic DHCP enabled net plan
+sudo rm /etc/netplan/00-installer-config.yaml
+sudo cp ~/k8-nodes/tmplt.net /etc/netplan/50-cloud-init.yaml
+sudo chmod 0600 /etc/netplan/50-cloud-init.yaml
+
 # setup the first boot script and service
-sudo cp ./first-boot.service /etc/systemd/system/
-sudo cp firstboot.sh /usr/local/bin/firstboot.sh
+sudo cp ~/k8-nodes/first-boot.service /etc/systemd/system/
+sudo cp ~/k8-nodes/firstboot.sh /usr/local/bin/firstboot.sh
+sudo chmod +x /usr/local/bin/firstboot.sh
 sudo systemctl daemon-reload
 sudo systemctl enable first-boot.service
 
@@ -21,4 +27,4 @@ sudo /bin/rm -v /etc/ssh/ssh_host_*
 sudo dhclient -r ens192 && sudo rm /var/lib/dhcp/dhclient.leases
 
 # shutdown
-#sudo shutdown now
+sudo shutdown now

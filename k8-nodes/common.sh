@@ -4,8 +4,6 @@
 
 cd ~/k8-nodes
 
-sudo chmod 600 /etc/netplan/00-installer-config.yaml
-
 # change SSH server keys
 sudo /bin/rm -v /etc/ssh/ssh_host_* 
 sudo dpkg-reconfigure -fteletype openssh-server 

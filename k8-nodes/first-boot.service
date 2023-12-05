@@ -1,0 +1,9 @@
+[Unit]
+Description=Run on first boot only
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/firstboot.sh
+
+[Install]
+WantedBy=multi-user.target

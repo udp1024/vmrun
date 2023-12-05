@@ -3,11 +3,8 @@ network:
   version: 2
   ethernets:
     ens192:
-      dhcp6: false
-      dhcp4: false 
-      addresses:
-        - 192.168.1.41/20
-        - 2001:56a:f85f:b900::41/64
+      dhcp4: true
+      dhcp6: false 
       nameservers:
         addresses: [192.168.1.3, 192.168.1.4]
         search: [udp1024.com]
@@ -20,6 +17,5 @@ network:
           to: default
           via: 2001:56a:f85f:b9ff:a2b5:3cff:fe39:35d
           metric: 90
-      dhcp4: false
-      dhcp6: false
-      accept-ra: false
+      accept-ra: true
+      
