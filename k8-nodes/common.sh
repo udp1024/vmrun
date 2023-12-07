@@ -1,6 +1,7 @@
 #!/bin/bash
 # customization script for k8-node
 # nodes are m1,m2,m3 and w1,w2,w3
+# called by setup-??.sh
 
 cd ~/k8-nodes
 

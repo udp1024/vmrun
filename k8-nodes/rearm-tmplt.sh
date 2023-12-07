@@ -1,6 +1,6 @@
 #!/bin/bash
 # script to re-arm the template and make it ready for first-boot as a new clone
-
+# sets up firstboot.sh and first-boot.service 
 
 # disable cloud-init
 sudo touch /etc/cloud/cloud-init.disabled

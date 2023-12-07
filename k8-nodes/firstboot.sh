@@ -1,5 +1,7 @@
 #!/bin/bash
 # script to configure the system only on the first boot
+# trigger is set by rearm-tmplt.sh which is executed as the last step of template prep
+
 logger -p local0.info -t first-boot "Started execution - first-boot.sh"
 
 # set generic DHCP netplan

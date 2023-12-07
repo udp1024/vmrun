@@ -1,5 +1,7 @@
 #!/bin/bash
-# script to clone a node k8-w1 from template
+# script to clone a node from template
+# calls _clone.sh
+
 cd ~/vmrun
 TEMPLATE="/Volumes/Crucial X8/VMs/K8 Cluster 1/k8-tmplt/k8-tmplt.vmwarevm/k8-tmplt.vmx"
 TARGET="/Volumes/Crucial X8/VMs/K8 Cluster 1/k8w1/k8-w1.vmwarevm/k8-w1.vmx"

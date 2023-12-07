@@ -1,6 +1,6 @@
 #!/bin/bash
 # script to change hostname and assign a static ip
-# called by _clone.sh
+# called by _clone.sh via ssh command
 # calls common.sh
 
 cd ~/k8-nodes

@@ -1,7 +1,7 @@
 #!/bin/bash
 # script called from machine specific clone script
 # assumes environment has been set
-
+# called by clone-??.sh
 
 rm -rf "$TARGETPATH"
 if [ $DEBUG = 1 ]; then echo "removed vm. Continue?"; read REPLY ; fi
@@ -82,9 +82,10 @@ ssh-keygen -R $TARGETURL
 echo 'waiting for server to reboot'
 while ! nc -z $TARGETURL 22 > /dev/null; do sleep 1; done
 echo Cloning complete for node $TARGETNAME $TARGETURL
-echo final reboot initiated to align vmware fusion with machine state
-vmrun stop $TARGET &&
-vmrun start $TARGET nogui
-while ! nc -z $TARGETURL 22 > /dev/null; do sleep 1; done
+#echo final reboot initiated to align vmware fusion with machine state
+#vmrun stop "$TARGET" &&
+#vmrun start "$TARGET" nogui
+#while ! nc -z $TARGETURL 22 > /dev/null; do sleep 1; done
 echo 'waiting for final reboot'
+ssh -oStrictHostKeyChecking=accept-new salman@$TARGETURL "sudo run-parts /etc/update-motd.d/"
 ssh -oStrictHostKeyChecking=accept-new salman@$TARGETURL
