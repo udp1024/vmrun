@@ -7,6 +7,11 @@ logger -p local0.info -t first-boot "setting netplan"
 sudo rm /etc/netplan/00-installer-config.yaml
 sudo cp /home/salman/k8-nodes/tmplt.net /etc/netplan/50-cloud-init.yaml
 sudo chmod 0600 /etc/netplan/50-cloud-init.yaml
+sudo netplan apply
+
+# updating motd
+logger -p local0.info -t first-boot "updating motd"
+sudo run-parts /etc/update-motd.d/
 
 # make a new /etc/machine-id
 logger -p local0.info -t first-boot "setting up machine-id"

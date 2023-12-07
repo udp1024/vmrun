@@ -12,7 +12,7 @@ if [ $DEBUG = 1 ]; then echo "created clone. Continue?"; read REAPLY ; fi
 #cp "$TARGET" "$TARGET.bak"
 #sed -e 's/ethernet0\.addressType = "static"/ethernet0.addressType = "generated"/' -e '/^ethernet0\.address =/d' "$TARGET.bak" > "$TARGET"
 
-echo Bootstrapping $TARGETNAME
+echo Bootstrapping $TARGETNAME. This will take a while as a new machine id is set, new SSH keys are generated, and the vm is booted twice
 #vmrun start "$TARGET" nogui &&
 #if [ $DEBUG = 1 ]; then vmrun start "$TARGET" ; 
 #else vmrun start "$TARGET" nogui
@@ -30,8 +30,8 @@ while [ "$PREFIX" != "192.168." ]; do
     # printf $(date  +"%I:%H:%S %p\r")
     printf "     ..... $(date +%r) ${TEMPIP:0:36}...\r"
     PREFIX=${TEMPIP:0:8}
-    if [ "$PREFIX" = "192.168" ]; then 
-        printf "     ..... $(date +%r) ${TEMPIP:0:36}
+    if [ "$PREFIX" = "192.168." ]; then 
+        printf "     ..... $(date +%r) ${TEMPIP:0:36}"
         break 
     fi
 done
@@ -45,13 +45,18 @@ if [ $DEBUG = 1 ]; then echo  "Continue?"; read REPLY; fi
 printf "clearing outdated server keys ..."
 ssh-keygen -R $TEMPIP
 printf "adding new key"
-ssh -oStrictHostKeyChecking=accept-new salman@$TEMPIP "mkdir /home/salman/k8-nodes"
+ssh -oStrictHostKeyChecking=accept-new salman@$TEMPIP "mkdir -p ~/k8-nodes"
 # scp k8-nodes/setup-m1.sh k8-nodes/m1.net salman@$TEMPIP:/home/salman/k8-nodes
 # scp $TARGETSETUPSCRIPT $TARGETSETUPNETPLAN salman@$TEMPIP:k8-nodes
 printf "loading source files"
-scp -r ~/vmrun/k8-nodes salman@$TEMPIP: > /dev/null
 
-if [ $DEBUG = 1 ]; then echo "copied setup to clone. Continue?"; read REPLY; fi
+if [ $DEBUG = 1 ]; then 
+    scp -r ~/vmrun/k8-nodes salman@$TEMPIP:
+else
+    scp -r ~/vmrun/k8-nodes salman@$TEMPIP: > /dev/null
+fi
+
+if [ $DEBUG = 1 ]; then echo "copied setup script $TARGETSETUPSCRIPT to clone at $TEMPIP. Continue?"; read REPLY; fi
 printf "starting customization "
 ssh salman@$TEMPIP $TARGETSETUPSCRIPT
 printf "waiting for customization script to complete execution ..."
@@ -70,7 +75,7 @@ ssh-keygen -R $TEMPIP
 ssh-keygen -R $TARGETURL
 
 #if [ $DEBUG = 1 ]; then echo "ssh is ready. Continue to shutdown the VM?"; read REPLY; fi
-echo shutting down the vm
+#echo shutting down the vm
 # Shutdown the VM
 #ssh -oStrictHostKeyChecking=accept-new salman@$TARGETURL "sudo shutdown now"
 #echo Please change the  mac address now

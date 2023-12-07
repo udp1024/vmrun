@@ -5,12 +5,13 @@
 cd ~/k8-nodes
 
 # change SSH server keys
-sudo /bin/rm -v /etc/ssh/ssh_host_* 
-sudo dpkg-reconfigure -fteletype openssh-server 
-# remove dhcp lease and lease cache
-sudo dhclient -r ens33 
-	sudo rm /var/lib/dhcp/dhclient.leases 
-	sudo rm /etc/machine-id 
-	sudo systemd-machine-id-setup 
-	sudo reboot 
+# sudo /bin/rm -v /etc/ssh/ssh_host_* 
+# sudo dpkg-reconfigure -fteletype openssh-server 
+# already done in _clone.sh script
 
+# remove dhcp lease and lease cache
+sudo rm /var/lib/dhcp/dhclient.leases 
+# sudo rm /etc/machine-id 
+# sudo systemd-machine-id-setup 
+sudo dhclient -r ens33 
+sudo reboot 
