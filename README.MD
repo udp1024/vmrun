@@ -23,6 +23,7 @@ Make sure to copy your SSH certificate to the template. The ability to login via
 
 Using all defaults for the prompts, you can quickly generate a key pair. Once the key pair is ready, copy the pubic key to the template; e.g.
 >ssh-copy-id ubuntu@template
+
 This assumes that your template VM is called template, with user0 defined as ubuntu and ssh keys are present in your home folder as ~/.ssh/id_rsa
 
 ## Network
@@ -46,5 +47,8 @@ This will start execution of hte script. A series of input prompts will ask you 
 2. Path to where you want to locate the cluster; e.g. /data/vms
 3. Path for the cluster. Default is k8cluster1 which results in /data/vms/k8cluster1 directory being created. Each node will ahve its own subdirectory in the cluster directory.
 
+For convenience, two scripts start-k8.sh and stop-k8.sh are also available in the vmrun directory to stop and start the cluster.
+
 ## Result
 At the end of the run, there should be six virtual machines cloned in k8cluster1 folder. Three are intended to be Controllers for the Kubernetes and three as worker nodes. You can now proceed to use kubeadm or other mechanisms to install and configure kubeernetes.
+
