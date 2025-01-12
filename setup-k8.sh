@@ -76,7 +76,7 @@ for (( q=0; q < ${#arr2[@]}; ++q)); do
 	if [ $DEBUG = 1 ]; then echo "copied setup script $TARGETSETUPSCRIPT to clone at $NODEIP. Continue?"; read REPLY; fi
 	KUSTOMIZE='k8-nodes/'${arr2[$q]}'.sh'
 	echo preparing to run command \""$KUSTOMIZE"\"
-	ssh ubuntu@$NODEIP \""$KUSTOMIZE"\"
+	ssh -oStrictHostKeyChecking=accept-new ubuntu@$NODEIP \""$KUSTOMIZE"\"
 
 	while ping -q -c 1 $NODEIP &> /dev/null; do sleep 1; done; echo "node has rebooted. Waiting for SSH server to return online"
 	sleep 5
