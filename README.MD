@@ -1,3 +1,4 @@
+![a graphic of user tinkering with gears and computers](https://github.com/udp1024/vmrun/blob/main/_1a6e5fa7-fe30-46d7-98f0-0937ad98cf86.jpeg)
 # VMrun
 A suite of scripts to create a set of Virtual Machines by cloning a template. These virtual machines are intended to be used as hosts for a Kubernetes Cluster on VMWare Workstation, Player or Fusion platform.
 
