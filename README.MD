@@ -20,6 +20,7 @@ When the template is ready, run the k8-nodes/rearm-tmplt.sh to prepare it for cl
 
 Make sure to copy your SSH certificate to the template. The ability to login via SSH with certificate is necessary for the scripts to operate. For more information refer to https://www.ssh.com/academy/ssh - To generate a basic key pair run the command;
 > ssh-keygen
+
 Using all defaults for the prompts, you can quickly generate a key pair. Once the key pair is ready, copy the pubic key to the template; e.g.
 >ssh-copy-id ubuntu@template
 This assumes that your template VM is called template, with user0 defined as ubuntu and ssh keys are present in your home folder as ~/.ssh/id_rsa
