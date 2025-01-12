@@ -21,9 +21,12 @@ echo 'starting Cluster Node in the background. PID and IP will be output on cons
 jim=m,w
 for j in ${jim//,/ }; do
 	for i in {1..3}; do
-		echo -n "starting k8-$j$i on IP " ; 
-		vmrun start "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm/k8-$j$i.vmx" nogui;
-		vmrun -T fusion getGuestIPAddress "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm/k8-$j$i.vmx" -wait
+		NODE="k8-$j$i"
+		echo -n "starting $NODE on IP " ; 
+		# vmrun start "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm/k8-$j$i.vmx" nogui;
+		# vmrun -T fusion getGuestIPAddress "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm/k8-$j$i.vmx" -wait
+		vmrun -T ws start "/data/vms/k8cluster1/$NODE/$NODE.vmx" nogui;
+		vmrun -T ws getGuestIPAddress "/data/vms/k8cluster1/$NODE/$NODE.vmx" -wait
 	done
 done
 echo 'Cluster Started. Following VMs are now running'

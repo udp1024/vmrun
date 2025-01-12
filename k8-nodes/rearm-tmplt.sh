@@ -22,6 +22,7 @@ sudo systemctl enable first-boot.service
 
 #SSH Server Generate new keys
 #sudo /bin/rm -v /etc/ssh/ssh_host_* 
+sudo rm -f /etc/ssh/*_keys*
 
 # release ip dhcp lease and remove cache
 sudo dhclient -r ens192 && sudo rm /var/lib/dhcp/dhclient.leases

@@ -39,12 +39,12 @@ handle_choice() {
 }
 
 # Main script loop
-while true; do
-    display_menu
-    read -p "Enter your choice [Default: $VMWARETYPE]: " choice
-    choice=${choice:-$VMWARETYPE}
-    handle_choice $choice
-done
+#while true; do
+#    display_menu
+#    read -p "Enter your choice [Default: $VMWARETYPE]: " choice
+#    choice=${choice:-$VMWARETYPE}
+#    handle_choice $choice
+#done
 
 # Check if VMWARETYPE is set
 if [ -z "$VMWARETYPE" ]; then

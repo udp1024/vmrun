@@ -19,12 +19,15 @@ echo 'Stopping k8 cluster 1'
 jim=w,m
 for j in ${jim//,/ }; do
         for i in {3..1}; do
-		echo "Stopping k8-$j$i - waiting for the host to go down"
-		vmrun -T fusion stop "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm/k8-$j$i.vmx" wait;
-		while [ $(ping -c 1 -W 500 -Q k8-w3.udp1024.com > /dev/null ; echo $?) -eq 0 ] 
-			do :
-			done
-		echo "k8-$j$i is down"
+		NODE="k8-$j$i"
+		echo "Stopping $NODE - waiting for the host to go down"
+		#vmrun -T fusion stop "/Volumes/Crucial X8/VMs/K8 Cluster 1/k8$j$i/k8-$j$i.vmwarevm/k8-$j$i.vmx" wait;
+		NODEIP=$(vmrun -T ws getGuestIPAddress "/data/vms/k8cluster1/$NODE/$NODE.vmx" wait)
+		vmrun -T ws stop "/data/vms/k8cluster1/$NODE/$NODE.vmx";
+		# while [ $(ping -c 1 -W 500 $NODEIP > /dev/null ; echo $?) -eq 0 ] 
+		# 	do :
+		# 	done
+		# echo "$NODE is down"
         done
 done
 echo 'Cluster Stopped'
@@ -34,4 +37,3 @@ echo 'Cluster Stopped'
 #osascript -e 'quit app "Vmware Fusion"'
 #echo 'Vmware Fusion stopped, exit.'
 echo 'done'
-

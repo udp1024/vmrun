@@ -2,12 +2,12 @@
 # customization script for k8-node
 # nodes are m1,m2,m3 and w1,w2,w3
 
-cd ~/k8-nodes
-sudo systemd-machine-id-setup
-sudo hostnamectl set-hostname "k8-m3"
-sudo cp 99-disable-network-config.cfg /etc/cloud/cloud.cfg.d/
-sudo mv /etc/netplan/00-installer-config.yaml ./00-installer-config.yaml.bak
-sudo cp netplan.m3 /etc/netplan/00-installer-config.yaml
-
+cd k8-nodes
 . ./common.sh
-sudo reboot
+
+sudo hostnamectl set-hostname "k8-m3"
+
+sudo cp netplan.m3 /etc/netplan/00-installer-config.yaml
+sudo chmod 600 /etc/netplan/00-installer-config.yaml
+
+sudo reboot now
