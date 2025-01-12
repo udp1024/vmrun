@@ -12,6 +12,7 @@ Ensure DNS entries or host file entries for each node are created and resolving.
 
 Ability to sudo without password must be configured on the VMware host as well as in the template. This can be achieved by running the following command;
 > echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$USER
+
 on both the VM host as well as the template.
 
 These scripts depend upon availability of a pre-configured template virtual machine. The contents of the folder k8-nodes must be copied to the home directory of the main account.
