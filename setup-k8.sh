@@ -80,10 +80,10 @@ for (( q=0; q < ${#arr2[@]}; ++q)); do
 
 	while ping -q -c 1 $NODEIP &> /dev/null; do sleep 1; done; echo "node has rebooted. Waiting for SSH server to return online"
 	sleep 5
+	ssh-keygen -R $NODEIP
 	export NODEIP=$(vmrun -T $VMWARETYPE getGuestIPAddress "$TARGETNODE" -wait)
 	while ! nc -z $NODEIP 22 &> /dev/null; do sleep 1; done;
-	echo "k8-${arr2[$q]} has changed its IP address to: $NODEIP. Removing old SSH server id"
-	ssh-keygen -R $NODEIP
+	echo "k8-${arr2[$q]} has changed its IP address to: $NODEIP"
 done
 echo 'Cluster Started'
 
